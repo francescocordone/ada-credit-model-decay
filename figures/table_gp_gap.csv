@@ -1,0 +1,3 @@
+model,kernel,trend_first_quarter,trend_last_quarter,whole_band_above_zero_from
+Logistic regression,RBF(length_scale=3.2) + WhiteKernel(noise_level=0.313),-0.004767643268821085,0.04448662225153643,2012Q4
+XGBoost,RBF(length_scale=3.11) + WhiteKernel(noise_level=0.223),-0.03325826072092114,0.05055091368203081,2013Q1
