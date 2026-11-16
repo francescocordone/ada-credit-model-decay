@@ -1,0 +1,10 @@
+model,test,first_not_green,first_red,green,amber,red
+Logistic regression,gini,2012Q1,2012Q1,0,0,16
+Logistic regression,calibration,2012Q1,never,9,7,0
+Logistic regression,psi,2012Q3,never,4,12,0
+XGBoost,gini,2012Q1,2012Q1,0,0,16
+XGBoost,calibration,2012Q1,never,9,7,0
+XGBoost,psi,2012Q4,never,9,7,0
+Lending Club grade,gini,2012Q1,2012Q1,9,3,4
+Lending Club grade,calibration,2012Q1,2012Q1,4,6,6
+Lending Club grade,psi,2012Q4,never,12,4,0
