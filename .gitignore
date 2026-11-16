@@ -19,7 +19,8 @@ models/*.joblib
 # Secrets
 kaggle.json
 
-# Personal study notes and planning documents
+# Personal study notes, planning documents and local tool settings
 notes/
 ADA PROJECT.txt
 PIPELINE.md
+CLAUDE.md

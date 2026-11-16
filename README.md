@@ -69,5 +69,8 @@ reproduced every result table exactly.
 
 ## Use of AI
 
-The code in this repository was drafted with the help of Claude (Anthropic). The full
-declaration of AI use is in the paper.
+The research question, the design of the analysis and the pipeline are the author's own
+work. The author wrote the pipeline as a step-by-step plan, a kind of pseudo-code that sets
+the data rules, the models, the tests and the thresholds of every stage. Claude Code
+(Anthropic) was used to turn that plan into the final code, to run it and to debug it. The
+full declaration of AI use is in the paper.
