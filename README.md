@@ -37,10 +37,10 @@ The notebooks can also be opened in Jupyter and run with Restart & Run All.
 | Stage | File | What it does | Main output | Time |
 | --- | --- | --- | --- | --- |
 | 1 | `code/01_get_data.py` | Downloads the raw file and keeps the 36-month loans issued 2009-2015 | `data/interim/lc_36m_2009_2015.parquet` | 3-10 min (download) |
-| 2 | `code/02_clean.ipynb` | Target, cohort, features, occupation groups, sample | `data/processed/loans_clean.parquet` | 20 s |
-| 3 | `code/03_models.ipynb` | Logistic regression, XGBoost and the Lending Club grade as a benchmark | `data/processed/scores.parquet`, `models/` | 10 s |
-| 4 | `code/04_monitoring.ipynb` | Gini, calibration and PSI per quarter, with traffic lights | `data/processed/monitoring.csv` | 1 min |
-| 5 | `code/05_drift.ipynb` | Why the models degrade: population, relationship, level, occupation, PCA | tables and figures | 4 min |
+| 2 | `code/02_clean.ipynb` | Target, cohort, features, occupation groups, sample | `data/processed/loans_clean.parquet` | under 1 min |
+| 3 | `code/03_models.ipynb` | Logistic regression, XGBoost and the Lending Club grade as a benchmark | `data/processed/scores.parquet`, `models/` | under 1 min |
+| 4 | `code/04_monitoring.ipynb` | Gini, calibration and PSI per quarter, with traffic lights | `data/processed/monitoring.csv` | 1-4 min |
+| 5 | `code/05_drift.ipynb` | Why the models degrade: population, relationship, level, occupation, PCA | tables and figures | 4-10 min |
 | 6 | `code/06_extensions.ipynb` | Gaussian process trend and borrower clusters | tables and figures | 1 min |
 
 `code/helpers.py` holds the paths, the feature lists and every function used by more than
@@ -63,7 +63,9 @@ loans per quarter from 2012, 211,505 loans in total.
 ## Compute
 
 Developed and run on a laptop: Intel Core i5-1135G7 (4 cores), 8 GB of RAM, Windows 11,
-Python 3.14.3, no GPU. The whole pipeline runs in about 15 minutes, most of it the download.
+Python 3.14.3, no GPU. After the download the whole pipeline runs in 8 to 17 minutes (the
+longer time is on battery power). A fresh clone of the repository, run in this order,
+reproduced every result table exactly.
 
 ## Use of AI
 
