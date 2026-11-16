@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Editor and operating system
+.vscode/
+.DS_Store
+
+# Data: the download script is versioned, the files it produces are not
+data/raw/
+data/interim/
+data/processed/*.parquet
+
+# Fitted models are rebuilt by 03_models.ipynb
+models/*.joblib
+
+# Secrets
+kaggle.json
+
+# Personal study notes and planning documents
+notes/
+ADA PROJECT.txt
+PIPELINE.md
