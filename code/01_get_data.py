@@ -15,24 +15,24 @@ OUT_FILE = INTERIM / "lc_36m_2009_2015.parquet"
 
 FIRST_YEAR, LAST_YEAR = 2009, 2015
 
-# Only what is known when the borrower applies, plus the lender's own rating
+# Only what is known when the borrower applies, plus the lender's own grade
 # and the final outcome. Everything recorded after the loan is issued
 # (payments, recoveries, last FICO score, hardship and settlement plans) is
-# never loaded: it would leak the outcome into the features.
+# never loaded: it would leak the outcome into the features. The interest
+# rate and the installment are left out too, because they are set by
+# Lending Club's own model and carry the same information as the grade.
 USEFUL_COLUMNS = [
     # identifiers and outcome
     "id", "issue_d", "term", "loan_status",
     # the lender's own assessment, kept only as a benchmark
-    "grade", "sub_grade", "int_rate", "installment",
+    "grade", "sub_grade",
     # the application
     "loan_amnt", "purpose", "annual_inc", "verification_status", "dti",
-    "emp_title", "emp_length", "home_ownership", "addr_state",
+    "emp_title", "emp_length", "home_ownership",
     # the credit report at origination
     "fico_range_low", "fico_range_high", "earliest_cr_line",
     "revol_bal", "revol_util", "open_acc", "total_acc",
-    "delinq_2yrs", "mths_since_last_delinq", "inq_last_6mths",
-    "pub_rec", "pub_rec_bankruptcies", "collections_12_mths_ex_med",
-    "acc_now_delinq", "tax_liens",
+    "delinq_2yrs", "mths_since_last_delinq", "inq_last_6mths", "pub_rec",
     # credit report fields that Lending Club started to publish later:
     # loaded so that stage 2 can show from which year each one exists
     "tot_cur_bal", "tot_coll_amt", "total_rev_hi_lim", "avg_cur_bal",
@@ -90,10 +90,17 @@ def filter_and_save():
     loans = pd.concat(kept, ignore_index=True)
     loans.to_parquet(OUT_FILE, index=False)
 
-    print(f"\nLoans in the raw file: {rows_read:,} "
-          f"(issued {first_date:%b %Y} to {last_date:%b %Y})")
-    print(f"36-month loans: {rows_36m:,}")
-    print(f"36-month loans issued {FIRST_YEAR}-{LAST_YEAR}: {len(loans):,}")
+    # Stage 2 continues this count, so the paper can report how many rows
+    # every rule removes, from the raw file to the final sample.
+    row_counts = pd.Series({
+        "Loans in the raw file": rows_read,
+        "36-month loans": rows_36m,
+        f"Issued {FIRST_YEAR}-{LAST_YEAR}": len(loans),
+    }, name="rows")
+    row_counts.to_csv(INTERIM / "row_counts.csv", index_label="step")
+
+    print(f"\nRaw file covers {first_date:%b %Y} to {last_date:%b %Y}")
+    print(row_counts.to_string())
     print(f"Saved {OUT_FILE.name} ({OUT_FILE.stat().st_size / 1e6:.0f} MB)")
 
     year = loans["issue_d"].dt.year.rename("issue_year")
